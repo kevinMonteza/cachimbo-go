@@ -1,0 +1,19 @@
+.componenteTienda{
+    background: olivedrab;
+    width: 50%;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 10px 10px 5px rgba(1,1,1,0.3);
+    box-shadow: 0 10px 10px 5px rgba(1,1,1,0.3);
+    margin-left: 450px;
+    margin-bottom: 20px;
+}
+
+.Informacion{
+    display: inline-block;
+    
+}
+
+.icono{
+    display: inline-block;
+    
+}
