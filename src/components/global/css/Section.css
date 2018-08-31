@@ -1,6 +1,48 @@
 .App-intro {
     font-size: large;
   }
+  .listar-pregunta{
+    border: 1.6px rgb(218, 218, 218) solid;
+    margin-top: 0.5em;
+    padding: 0.2em;
+    border-radius: 1em;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100%;
+    border-spacing: 15px 15px;
+    cursor:pointer;
+    list-style-type: none;
+  }
+  .radio{
+    font-size: 19px;
+  }
+  #saltar{
+    background-color: transparent;
+    border: 1.6px #bfbfbf solid;
+    border-radius: 1em;
+    font-size: 19px;
+    color: cadetblue;
+  }
+  #saltar:hover{
+    border-color: #3d3939;
+    background-color: #bfbfbf;
+    color: #706969
+  }
+  .listar-pregunta:hover{
+      background-color:rgba(133, 121, 121, 0.397);
+      border-color: rgba(68, 65, 65, 0.397);
+  }
+  .button-principal{
+    border-radius: 1em;
+  }
+  .respuesta{
+    text-align: justify; 
+  }
+  .area-respuesta-true{
+    background-color: #65ab00;
+  }
+  .area-respuesta-false{
+    background-color:#e70800;
+  }
 
   @media only screen and (min-width: 768px) {
   .container-fluid>.container{

@@ -3,13 +3,13 @@ import './styles.css';
 
 const Informacion = ({data}) => {
 
-    const {curso,descripcion} = data;
+    const {nombre,descripcion} = data;
 
     return (
         <div className="Informacion">
-            <span class="curso">{curso}</span>
+            <span className="curso">{nombre}</span>
             <br/>
-            <span class="descripcion">{descripcion}</span>
+            <span className="descripcion">{descripcion}</span>
         </div>
     );
 

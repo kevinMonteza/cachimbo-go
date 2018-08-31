@@ -20,7 +20,6 @@ class NavComponent extends Component {
         });
       }
 
-
     render() {
         const datos = this.props.datos || "nombre completo";
         return (

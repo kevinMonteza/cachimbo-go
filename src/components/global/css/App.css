@@ -5,7 +5,9 @@
 .App-intro {
   font-size: large;
 }
-
+.listar-preguntas{
+  border: 1px linen solid
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -6,9 +6,10 @@ import { IconContext } from "react-icons";
 import './styles.css';
 
 
-const ComponenteTienda = ({data}) => {
+const ComponenteTienda = ({data,comprar}) => {
 
-        const {costo} = data;
+        const {costo,nombre,id_articulo} = data;
+        const compras =comprar;
     
         return(
             <div className="componenteTienda">
@@ -21,7 +22,7 @@ const ComponenteTienda = ({data}) => {
 
                 <Informacion data={data}></Informacion>
 
-                <Button color="success">Comprar {costo}</Button>
+                <Button color="success" onClick={()=>compras(nombre,costo,id_articulo)}>Comprar {costo}</Button>
             </div>                
         );
     
