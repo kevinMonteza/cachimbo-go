@@ -22,7 +22,7 @@ class Tienda extends Component {
         }
         this.handleComprar = this.handleComprar.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         fetch("http://cachimbogo.xyz/listarArticulo.php")
             .then(response => {
                 return (response.json())
@@ -40,11 +40,11 @@ class Tienda extends Component {
             let confirmacion = window.confirm(`Desea comprar el articulo ${nombre}`);
             if (confirmacion) {
                 const arreglo = {
-                    id_usuario: this.props.id_usuario,
+                    id_usuario: 56,
                     id_articulo: id_articulo,
                     monedas: monedasU - costo
                 }
-                fetch('http://cachimbogo.xyz/compras.php', {
+                fetch('https://cachimbogo.herokuapp.com/servicios/usuarioArticulo/', {
 
                     method: 'POST',
                     headers: {
@@ -55,7 +55,7 @@ class Tienda extends Component {
                 })
                     .then(res => res.json())
                     .then(res => {
-                        alert(`Compra existosa`);
+                        alert(`Compra existosa ${res}`);
                     })
             }
         }

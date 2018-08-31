@@ -28,8 +28,8 @@ class Asignaturas extends Component{
         return(
             <Row>
                 {
-                 asignaturas.map((valor,key)=>
-                    <Col sm='3'><Tarjetas key={key} data={valor}/></Col>
+                 asignaturas && asignaturas.map((valor,key)=>
+                    <Col sm='3' key={key}><Tarjetas data={valor}/></Col>
                 )
             }
             </Row>

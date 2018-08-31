@@ -59,7 +59,7 @@ class Section extends Component {
                     msj: "Tu respuesta es Correcta"
                 })
             } else {
-                respuesta = new this.crearObj(56, preguntas[0].id_pregunta, 1);
+                respuesta = new this.crearObj(55, preguntas[0].id_pregunta, 1);
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     respuestas: this.state.respuestas.concat(respuesta),
@@ -77,7 +77,7 @@ class Section extends Component {
                     msj: "Tu respuesta es Incorrecta"
                 })
             } else {
-                respuesta = new this.crearObj(56, preguntas[0].id_pregunta, 0);
+                respuesta = new this.crearObj(55, preguntas[0].id_pregunta, 0);
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     respuestas: this.state.respuestas.concat(respuesta),
@@ -141,7 +141,7 @@ class Section extends Component {
                 })
             }
         } else {
-            console.log(this.state.respuestas);
+            console.log(JSON.stringify(this.state.respuestas));
             alert('termniaste');
             //ganancia de monedas
             const arreglo = {
@@ -153,13 +153,12 @@ class Section extends Component {
             } else {
                 arreglo.monedas = arreglo.monedas + 3;
             }
-            fetch('http://cachimbogo.xyz/ganancia_moneda.php?id_usuario=55&monedas=' + arreglo.monedas)
+            fetch('http://cachimbogo.xyz/ganancia_moneda.php?id_usuario=55&monedas=' + arreglo.monedas) //falta
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);
                 })
-            fetch('http://cachimbogo.xyz/insertar_respuestas.php', {
-
+            fetch('https://cachimbogo.herokuapp.com/servicios/respuesta/', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -184,7 +183,7 @@ class Section extends Component {
                 <button onClick={this.toggle}>Mostrar preguntas</button>
                 <Modal titulo="Gestion de preguntas" modal={this.state.modal} calificar={this.handleCalificar} toggle={this.toggle}
                     pregunta={this.state.pregunta[0]} responder={this.handleresponder} respuesta={this.state.respuesta} correcta={this.state.correcta}
-                    mensaje={this.state.msj} next={this.handleNext} />
+                    mensaje={this.state.msj} next={this.handleNext}/>
             </div>
         );
     }

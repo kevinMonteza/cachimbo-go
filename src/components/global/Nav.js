@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
 
-import {Link} from 'react-router-dom';
-import { Nav,Container, NavItem,Navbar,NavbarBrand,NavbarToggler,Collapse } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Nav, Container, NavItem, Navbar, NavbarBrand, NavbarToggler, Collapse } from 'reactstrap';
 
 
 class NavComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
 
         this.state = {
-          collapsed: false
+            collapsed: false
         };
-      }
-      toggleNavbar() {
+    }
+    toggleNavbar() {
         this.setState({
-          collapsed: !this.state.collapsed
+            collapsed: !this.state.collapsed
         });
-      }
+    }
 
     render() {
         const datos = this.props.datos || "nombre completo";
         return (
-                <Navbar className="sidebar bg-light" light>
-                    <Container>
-                        <NavbarBrand href="/perfil" className="mr-auto">{datos}</NavbarBrand>
-                        <NavbarToggler onClick={this.toggleNavbar}  className="mr-2" />
-                        <Collapse isOpen={!this.state.collapsed} navbar>
+            <Navbar className="sidebar bg-light" light>
+                <Container>
+                    <NavbarBrand href="/perfil" className="mr-auto">{datos}</NavbarBrand>
+                    <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+                    <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar>
                             <NavItem>
                                 <Link to="/perfil">Perfil</Link>
@@ -39,12 +39,15 @@ class NavComponent extends Component {
                                 <Link to="/ayuda">Ayuda</Link>
                             </NavItem>
                             <NavItem>
+                                <Link to="/asignaturas">Asignaturas</Link>
+                            </NavItem>
+                            <NavItem>
                                 <Link to="/nosotros">Nosotros</Link>
                             </NavItem>
-                        </Nav> 
-                    </Collapse>     
-                    </Container> 
-                </Navbar>
+                        </Nav>
+                    </Collapse>
+                </Container>
+            </Navbar>
 
         )
     }
