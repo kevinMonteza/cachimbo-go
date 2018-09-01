@@ -66,7 +66,7 @@ class Tienda extends Component {
             <div>
                 <h1>Tienda</h1>
                 <h2>$ Monedas</h2>
-                {articulos.map((datos, key) =>
+                {articulos && articulos.map((datos, key) =>
                     <ComponenteTienda key={key} data={datos} comprar={this.handleComprar} />
                 )}
             </div>

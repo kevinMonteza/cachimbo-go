@@ -25,8 +25,8 @@ class NavComponent extends Component {
         return (
             <Navbar className="sidebar bg-light" light>
                 <Container>
+                <NavbarToggler onClick={this.toggleNavbar} className="mr-2"/>
                     <NavbarBrand href="/perfil" className="mr-auto">{datos}</NavbarBrand>
-                    <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar>
                             <NavItem>

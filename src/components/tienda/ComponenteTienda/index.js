@@ -10,6 +10,7 @@ const ComponenteTienda = ({data,comprar}) => {
 
         const {costo,nombre,id_articulo} = data;
         const compras =comprar;
+        console.log(compras);
     
         return(
             <div className="componenteTienda">
