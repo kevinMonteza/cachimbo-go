@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
-import { Nav, Container, NavItem, Navbar, NavbarBrand, NavbarToggler, Collapse } from 'reactstrap';
+import {FaUser,FaStore,FaHandsHelping,FaReadme} from "react-icons/fa";
+import { Nav, Container, NavItem, Navbar, NavbarToggler, Collapse } from 'reactstrap';
 
 
 class NavComponent extends Component {
@@ -21,37 +22,33 @@ class NavComponent extends Component {
     }
 
     render() {
-        const datos = this.props.datos || "nombre completo";
         return (
-            <div style={{"background" : "black", "margin" : "10px", "border": "dashed", "heigh" : "5px"}}>
-            <Navbar className="sidebar bg-light" light style={{"background" : "black", "margin" : "10px", "border": "dashed", "heigh" : "5px"}}>
+            <Navbar className="sidebar bg-light" light>
                 <Container>
-                <NavbarToggler onClick={this.toggleNavbar} className="mr-2"/>
-                    <NavbarBrand href="/perfil" className="mr-auto">{datos}</NavbarBrand>
+                    <NavbarToggler onClick={this.toggleNavbar}  className="mr-2" />
                     <Collapse isOpen={!this.state.collapsed} navbar>
-                        <Nav navbar>
-                            <NavItem>
-                                <Link to="/perfil">Perfil</Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link to="/tienda">Tienda</Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link to="/ayuda">Ayuda</Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link to="/asignaturas">Asignaturas</Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link to="/nosotros">Nosotros</Link>
-                            </NavItem>
-                        </Nav>
-                    </Collapse>
-                </Container>
+                    <Nav navbar>
+                        <NavItem>
+                            <Link to="/perfil"><FaUser/>  Perfil </Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link to="/asignatura"><FaHandsHelping/> Asignatura</Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link to="/tienda"><FaStore/>  Tienda</Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link to="/ayuda"><FaHandsHelping/> Ayuda</Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link to="/nosotros"><FaReadme/> Nosotros</Link>
+                        </NavItem>
+                    </Nav> 
+                </Collapse>     
+                </Container> 
             </Navbar>
-            </div>
 
-        )
+    )
     }
 
 }

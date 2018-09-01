@@ -1,5 +1,4 @@
 import React from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -18,11 +17,10 @@ export default class Header extends React.Component {
   }
   render() {
     return (
-      <div style={{"background" : "black", "margin" : "10px", "border": "dashed"}}>
-        <Navbar color="light" light>
-          <NavbarBrand href="/" className="mr-auto text-muted"><h4>Cachimbo Go</h4></NavbarBrand>
-        </Navbar>
-      </div>
-    );
+      <header className="App-header">
+        <h1 className="App-title"> CachimboGO </h1>
+        
+      </header>
+  );
   }
 }

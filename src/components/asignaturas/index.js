@@ -67,7 +67,7 @@ class Asignaturas extends Component {
                 return (response.json())
             })
             .then(responseJson => {
-                console.log(responseJson);
+                console.log(responseJson[0]);
                 this.setState({
                     temas: responseJson
                 })
