@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
-import {FaUser,FaStore,FaHandsHelping,FaReadme} from "react-icons/fa";
+import {FaUser,FaStore,FaHandsHelping,FaReadme,FaBook} from "react-icons/fa";
 import { Nav, Container, NavItem, Navbar, NavbarToggler, Collapse } from 'reactstrap';
 
 
@@ -24,7 +24,7 @@ class NavComponent extends Component {
     render() {
         return (
             <Navbar className="sidebar bg-light" light>
-                <Container>
+                <Container style={{textAlign:"justify"}}>
                     <NavbarToggler onClick={this.toggleNavbar}  className="mr-2" />
                     <Collapse isOpen={!this.state.collapsed} navbar>
                     <Nav navbar>
@@ -32,7 +32,7 @@ class NavComponent extends Component {
                             <Link to="/perfil"><FaUser/>  Perfil </Link>
                         </NavItem>
                         <NavItem>
-                            <Link to="/asignatura"><FaHandsHelping/> Asignatura</Link>
+                            <Link to="/asignatura"><FaBook/> Asignatura</Link>
                         </NavItem>
                         <NavItem>
                             <Link to="/tienda"><FaStore/>  Tienda</Link>
