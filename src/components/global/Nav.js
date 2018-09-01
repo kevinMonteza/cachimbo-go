@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 import {FaUser,FaStore,FaHandsHelping,FaReadme,FaBook} from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
 import { Nav, Container, NavItem, Navbar, NavbarToggler, Collapse } from 'reactstrap';
 
 
@@ -10,6 +11,7 @@ class NavComponent extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.handleCerrar=this.handleCerrar.bind(this);
 
         this.state = {
             collapsed: false
@@ -19,6 +21,9 @@ class NavComponent extends Component {
         this.setState({
             collapsed: !this.state.collapsed
         });
+    }
+    handleCerrar(){
+        sessionStorage.removeItem('user');
     }
 
     render() {
@@ -32,7 +37,7 @@ class NavComponent extends Component {
                             <Link to="/perfil"><FaUser/>  Perfil </Link>
                         </NavItem>
                         <NavItem>
-                            <Link to="/asignaturas"><FaBook/> Asignatura</Link>
+                            <Link to="/asignaturas"><FaBook/>Practicar</Link>
                         </NavItem>
                         <NavItem>
                             <Link to="/tienda"><FaStore/>  Tienda</Link>
@@ -42,6 +47,9 @@ class NavComponent extends Component {
                         </NavItem>
                         <NavItem>
                             <Link to="/nosotros"><FaReadme/> Nosotros</Link>
+                        </NavItem>
+                        <NavItem>
+                            <a href="/login"  onClick={this.handleCerrar}><IoIosLogOut/>Cerrar Sesion</a>
                         </NavItem>
                     </Nav> 
                 </Collapse>     

@@ -6,8 +6,8 @@ class ModalPreguntas extends Component {
   constructor(){
     super();
     this.state={
-      userIn:' ',
-      contraIn:'  '
+      userIn:'',
+      contraIn:''
    }
     this.handleInputUser = this.handleInputUser.bind(this);
     this.handleInputContra = this.handleInputContra.bind(this);

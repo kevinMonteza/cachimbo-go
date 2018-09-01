@@ -29,7 +29,7 @@ class Tienda extends Component {
             let confirmacion = window.confirm(`Desea comprar el articulo ${nombre}`);
             if (confirmacion) {
                 const arreglo = {
-                    id_usuario: 55, // id del usuario del servicio
+                    id_usuario: usuario.id_usuario, // id del usuario del servicio
                     id_articulo: id_articulo,
                     monedas: monedasU - costo
                 }
@@ -42,7 +42,7 @@ class Tienda extends Component {
                     },
                     body: JSON.stringify(arreglo)
                 })*/
-                fetch('http://cachimbogo.xyz/compras.php/?id_usuario=55&id_articulo='+arreglo.id_articulo+'&monedas='+arreglo.monedas)
+                fetch('http://cachimbogo.xyz/compras.php/?id_usuario='+usuario.id_usuario+'&id_articulo='+arreglo.id_articulo+'&monedas='+arreglo.monedas)
 
                     .then(res => res.json())
                     .then(res => {

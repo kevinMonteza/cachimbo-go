@@ -78,6 +78,7 @@ class Temas extends Component {
     handleCalificar() {
         let preguntas = this.state.pregunta;
         let respuesta = {};
+        const usuario = JSON.parse(sessionStorage.getItem('user'));
 
         if (this.state.rpta === preguntas[0].correcta_num) {
             if (this.state.respuestas.find(pregunta => pregunta.id_pregunta === preguntas[0].id_pregunta)) {
@@ -88,7 +89,7 @@ class Temas extends Component {
                     msj: "Tu respuesta es Correcta"
                 })
             } else {
-                respuesta = new this.crearObj(55, preguntas[0].id_pregunta, 1);
+                respuesta = new this.crearObj(usuario.id_usuario, preguntas[0].id_pregunta, 1);//falta id 
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     respuestas: this.state.respuestas.concat(respuesta),
@@ -106,7 +107,7 @@ class Temas extends Component {
                     msj: "Tu respuesta es Incorrecta"
                 })
             } else {
-                respuesta = new this.crearObj(55, preguntas[0].id_pregunta, 0);
+                respuesta = new this.crearObj(usuario.id_usuario, preguntas[0].id_pregunta, 0); // id falta
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     respuestas: this.state.respuestas.concat(respuesta),
@@ -146,6 +147,7 @@ class Temas extends Component {
     //pasar a la siguiente pregunta
     handleNext() {
         let preguntas = this.state.pregunta;
+        const usuario = JSON.parse(sessionStorage.getItem('user'));
         console.log('id subtema'+this.state.idSubtema);
         if (preguntas.length !== 1) {
             if (this.state.rpta === preguntas[0].correcta_num) {
@@ -174,13 +176,12 @@ class Temas extends Component {
             console.log(JSON.stringify(this.state.respuestas));
             alert('termniaste');
             //ganancia de monedas
-            const usuario = JSON.parse(sessionStorage.getItem('user'));
             const arreglo = {
                 monedas: usuario.monedas, // monedas que se extrae del perfil del usuario
-                id_usuario: 55 //el codigo de usuario que se extrae del perfil de usuario
+                id_usuario: usuario.id_usuario //el codigo de usuario que se extrae del perfil de usuario
             }
             const arregloEstadistica={
-                id_usuario:55, // el id del usuario
+                id_usuario:usuario.id_usuario, // el id del usuario
                 id_subtema:this.state.idSubtema, //el id del subtem
                 completado:0
             }
@@ -212,6 +213,9 @@ class Temas extends Component {
                 .then(res => {
                     console.log(res);
                 })
+            this.setState({
+                modal:!this.state.modal
+            })
         }
     }
     render() {

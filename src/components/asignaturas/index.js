@@ -86,7 +86,7 @@ class Asignaturas extends Component {
         this.handleData();
         if (this.state.open) {
             return (
-                <Row style={{alignContent:"justify"}}>
+                <Row style={{alignContent:"justify",marginLeft:"auto",marginRight:"auto"}}>
                     {
                         asignaturas && asignaturas.map((valor, key) =>
                             <Col sm='3' key={key}><Tarjetas data={valor} comprar={this.handleGetTemas} /></Col>
