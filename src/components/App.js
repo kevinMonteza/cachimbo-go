@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import Header from './global/Header';
 import Nav from './global/Nav';
-import Section from './global/Section';
 import Footer from './global/Footer';
 
 
@@ -19,7 +18,7 @@ class App extends Component {
         <div className="App">
             <Header/>
             <Nav/>  
-            <Section body={children}/>
+            <div>{children}</div>
             <Footer/>
         </div>
       );

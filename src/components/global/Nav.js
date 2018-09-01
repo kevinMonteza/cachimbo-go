@@ -23,7 +23,8 @@ class NavComponent extends Component {
     render() {
         const datos = this.props.datos || "nombre completo";
         return (
-            <Navbar className="sidebar bg-light" light>
+            <div style={{"background" : "black", "margin" : "10px", "border": "dashed", "heigh" : "5px"}}>
+            <Navbar className="sidebar bg-light" light style={{"background" : "black", "margin" : "10px", "border": "dashed", "heigh" : "5px"}}>
                 <Container>
                 <NavbarToggler onClick={this.toggleNavbar} className="mr-2"/>
                     <NavbarBrand href="/perfil" className="mr-auto">{datos}</NavbarBrand>
@@ -48,6 +49,7 @@ class NavComponent extends Component {
                     </Collapse>
                 </Container>
             </Navbar>
+            </div>
 
         )
     }
