@@ -32,7 +32,7 @@ class NavComponent extends Component {
                             <Link to="/perfil"><FaUser/>  Perfil </Link>
                         </NavItem>
                         <NavItem>
-                            <Link to="/asignatura"><FaBook/> Asignatura</Link>
+                            <Link to="/asignaturas"><FaBook/> Asignatura</Link>
                         </NavItem>
                         <NavItem>
                             <Link to="/tienda"><FaStore/>  Tienda</Link>

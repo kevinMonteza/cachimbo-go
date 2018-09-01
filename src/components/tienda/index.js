@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
 import ComponenteTienda from './ComponenteTienda';
 
-/*const dataIngles = {
-    nombre: "Ingles",
-    descripcion: "Curso de ingles: Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-    costo: "10$"
-};
-
-const dataCivica = {
-    nombre: "Civica",
-    descripcion: "Curso de civica: Donec vestibulum, sapien at dignissim mollis, dui sapien iaculis enim",
-    costo: "20$"
-};*/
-
 class Tienda extends Component {
 
     constructor() {
@@ -34,17 +22,18 @@ class Tienda extends Component {
             })
     }
     handleComprar(nombre, costo, id_articulo) {
-        let monedasU = this.props.monedas || 150;
+        const usuario = JSON.parse(sessionStorage.getItem('user'));
+        let monedasU = usuario.monedas;
         console.log(id_articulo);
         if (monedasU > costo) {
             let confirmacion = window.confirm(`Desea comprar el articulo ${nombre}`);
             if (confirmacion) {
                 const arreglo = {
-                    id_usuario: 56,
+                    id_usuario: 55, // id del usuario del servicio
                     id_articulo: id_articulo,
                     monedas: monedasU - costo
                 }
-                fetch('https://cachimbogo.herokuapp.com/servicios/usuarioArticulo/', {
+               /* fetch('https://cachimbogo.herokuapp.com/servicios/usuarioArticulo/', {
 
                     method: 'POST',
                     headers: {
@@ -52,7 +41,9 @@ class Tienda extends Component {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(arreglo)
-                })
+                })*/
+                fetch('http://cachimbogo.xyz/compras.php/?id_usuario=55&id_articulo='+arreglo.id_articulo+'&monedas='+arreglo.monedas)
+
                     .then(res => res.json())
                     .then(res => {
                         alert(`Compra existosa ${res}`);
@@ -62,10 +53,11 @@ class Tienda extends Component {
     }
     render = () => {
         const articulos = this.state.articulos;
+        const usuario = JSON.parse(sessionStorage.getItem('user'));
         return (
             <div>
                 <h1>Tienda</h1>
-                <h2>$ Monedas</h2>
+                <h2>${usuario.monedas}</h2>
                 {articulos && articulos.map((datos, key) =>
                     <ComponenteTienda key={key} data={datos} comprar={this.handleComprar} />
                 )}

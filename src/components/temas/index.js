@@ -12,6 +12,7 @@ class Temas extends Component {
         this.state = {
             open: true,
             subtemas:[],
+            idSubtema:0,
             id_tema:0,
             modal: false,     // flag para abrir o cerrar el modal
             pregunta: [],    // Array que almacena las preguntas que llegandesde el API
@@ -63,7 +64,8 @@ class Temas extends Component {
                     respuesta: "",
                     respuestas: [],
                     correcta: false,
-                    msj: null
+                    msj: null,
+                    idSubtema:props
                 })
             })
     }
@@ -96,7 +98,7 @@ class Temas extends Component {
             }
         } else {
             if (this.state.respuestas.find(pregunta => pregunta.id_pregunta === preguntas[0].id_pregunta)) {
-                console.log('en el if');
+                //console.log('en el if');
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     correcta: false,
@@ -144,6 +146,7 @@ class Temas extends Component {
     //pasar a la siguiente pregunta
     handleNext() {
         let preguntas = this.state.pregunta;
+        console.log('id subtema'+this.state.idSubtema);
         if (preguntas.length !== 1) {
             if (this.state.rpta === preguntas[0].correcta_num) {
                 //console.log(preguntas.shift());
@@ -171,13 +174,14 @@ class Temas extends Component {
             console.log(JSON.stringify(this.state.respuestas));
             alert('termniaste');
             //ganancia de monedas
+            const usuario = JSON.parse(sessionStorage.getItem('user'));
             const arreglo = {
-                monedas: 70, // monedas que se extrae del perfil del usuario
+                monedas: usuario.monedas, // monedas que se extrae del perfil del usuario
                 id_usuario: 55 //el codigo de usuario que se extrae del perfil de usuario
             }
             const arregloEstadistica={
                 id_usuario:55, // el id del usuario
-                id_subtema:23, //el id del subtem
+                id_subtema:this.state.idSubtema, //el id del subtem
                 completado:0
             }
             if (this.state.errorPregunta) {
@@ -186,7 +190,7 @@ class Temas extends Component {
                 arregloEstadistica.completado = 1;
                 arreglo.monedas = arreglo.monedas + 3;
             }
-            fetch('http://cachimbogo.xyz/ganancia_moneda.php?id_usuario=55&monedas=' + arreglo.monedas) //falta
+            fetch('http://cachimbogo.xyz/ganancia_moneda.php?id_usuario=55&monedas=' + arreglo.monedas) //FALTA
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);
@@ -203,7 +207,7 @@ class Temas extends Component {
                 .then(res => {
                     console.log(res);
                 })
-            fetch('http://cachimbogo.xyz/insertar_usuario_subtema.php/?id_usuario=56&id_subtema=10&completado='+arregloEstadistica.completado)
+            fetch('http://cachimbogo.xyz/insertar_usuario_subtema.php/?id_usuario=55&id_subtema='+this.state.idSubtema+'&completado='+arregloEstadistica.completado)//FALTA
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);

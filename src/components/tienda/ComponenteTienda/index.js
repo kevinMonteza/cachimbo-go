@@ -16,9 +16,9 @@ const ComponenteTienda = ({data,comprar}) => {
             <div className="componenteTienda">
 
                 <IconContext.Provider  value={{ color: "black", size: "5em"}}>
-                <div className="icono">
-                    <FiGift/>
-                </div>
+                    <div className="iconos">
+                        <FiGift/>
+                    </div>
                 </IconContext.Provider>
 
                 <Informacion data={data}></Informacion>

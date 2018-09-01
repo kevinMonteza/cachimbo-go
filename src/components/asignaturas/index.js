@@ -16,7 +16,8 @@ class Asignaturas extends Component {
         this.handleData = this.handleData.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        console.log("will mount"+sessionStorage.getItem('user').id_usuario);
         fetch("http://cachimbogo.xyz/usuario_asignatura.php/?id_usuario=55")//this.props.user.id_usuario)
             .then(response => {
                 return (response.json())
@@ -46,7 +47,9 @@ class Asignaturas extends Component {
             { imagen: 'https://ztfnews.files.wordpress.com/2013/12/choco.jpg' },
             { imagen: 'https://1.bp.blogspot.com/-xH7rNRpTk1M/VbpJfOWnXHI/AAAAAAAASBk/h9RifXmJgQ4/s1600/Biologia.jpg' },
             { imagen: 'http://img.webme.com/pic/r/recreomatematico/LOGO_BLOG_MATEMATICA.png' },
-            { imagen: 'http://materialparaprofesores.ga/wp-content/uploads/2018/03/razonamientoverbal.png' }
+            { imagen: 'http://materialparaprofesores.ga/wp-content/uploads/2018/03/razonamientoverbal.png' },
+            { imagen: 'http://img.webme.com/pic/r/recreomatematico/LOGO_BLOG_MATEMATICA.png' },
+            { imagen: 'https://static.iris.net.co/semana/upload/images/2017/12/30/552173_1.jpg' }
         ];
 
         let a = 0;

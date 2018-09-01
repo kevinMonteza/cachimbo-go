@@ -7,6 +7,7 @@ import Nosotros from './components/nosotros';
 import Tienda from './components/tienda';
 import Perfil from './components/perfil';
 import Asiganturas from './components/asignaturas';
+import Login from './components/Login/Login';
 
 const AppRoutes=()=>{ 
 			return(
@@ -17,6 +18,7 @@ const AppRoutes=()=>{
 						<Route path="/ayuda"        component={Ayuda} />
 						<Route path="/tienda"       component={Tienda} />
 						<Route path='/asignaturas'  component={Asiganturas} />
+						<Route path='/'             component={Login} />
 					</Switch>
 				</App>
 				)

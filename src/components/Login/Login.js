@@ -1,72 +1,62 @@
-import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
-import Section from '../global/Section';
-import Asignaturas from '../asignaturas';
-import './Login.css';
+import React,{Component} from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Row,Container,Input,Label,Col } from 'reactstrap';
 
-class Login extends Component {
-
+class ModalPreguntas extends Component {
+  
   constructor(){
     super();
-   
-    this.state = {
-     usuario: '',
-     password: '',
-     redirectToReferrer: false
-    };
+    this.state={
+      userIn:' ',
+      contraIn:'  '
+   }
+    this.handleInputUser = this.handleInputUser.bind(this);
+    this.handleInputContra = this.handleInputContra.bind(this);
 
-    this.login = this.login.bind(this);
-    this.onChange = this.onChange.bind(this);
-
-  }
-
-  
-
-  login() {
-    if(this.state.usuario && this.state.password){
-      const User={
-        id_ususario:55,
-        nombre:'kevin'
-      }
-      sessionStorage.setItem('user',User);
-      this.setState({
-        redirectToReferrer:true
-      })
-    }
     
-   }
-
-  onChange(e){
-    this.setState({[e.target.name]:e.target.value});
-   }
-
+  }
+  handleInputUser(data){
+    this.setState({
+      userIn:data.target.value
+    })
+  }
+  handleInputContra(data){
+    this.setState({
+      contraIn:data.target.value
+    })
+  }
   
-  
-
   render() {
-
-     if (this.state.redirectToReferrer) {
-      return (<Section body={Asignaturas}/>)
+    const titulo = this.props.titulo || "LOGIN";
+    if(!this.props.modal){
+      return null;
     }
-   
-    if(sessionStorage.getItem('user')){
-      return (<Redirect to={'/asignaturas'}/>)
-    }
-
-     return (
-      <div className="row" id="Body">
-        <div className="medium-5 columns left">
-        <h4>Login</h4>
-        <label>Username</label>
-        <input type="text" name="usuario" placeholder="Username" onChange={this.onChange}/>
-        <label>Password</label>
-        <input type="password" name="password"  placeholder="Password" onChange={this.onChange}/>
-        <input type="submit" className="button success" value="Login" onClick={this.login}/>
-        <a href="/signup">Registrar</a>
-        </div>
+    return (
+      <div>
+        <Modal isOpen={this.props.modal} size='lg'>
+          <ModalHeader toggle={this.props.toggle} charcode="X">{titulo}</ModalHeader>
+          <ModalBody>
+            <Label>Usuario</Label>
+            <Input type="text"  placeholder="ingrese usuario" onChange={this.handleInputUser} value={this.state.userIn}/><br/>
+            <Label>Contraseña</Label>
+            <Input type="password"  placeholder=".........." onChange={this.handleInputContra} value={this.state.contraIn}/>
+          </ModalBody>
+          <ModalFooter>
+            <Container> 
+              <Row>
+                <Col>
+                  <Button onClick={()=>{this.props.login(this.state.userIn,this.state.contraIn)}}>Login</Button>
+                </Col>
+                <Col sm='4'>
+                  <Button>Registrar</Button>
+                </Col>
+              </Row>
+            </Container>
+           
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }
 }
 
-export default Login;
+export default ModalPreguntas;
