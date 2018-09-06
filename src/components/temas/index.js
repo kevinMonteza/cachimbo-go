@@ -226,7 +226,7 @@ class Temas extends Component {
                 <Row>
                     {
                         temas && temas.map((valor, key) =>
-                            <Col className="col col-md-11 mt-5 mx-3" key={key}><Tema data={valor} getSubtemas={this.handleGetSubTemas}/></Col>
+                            <Col className="col col-md-11 my-5 mx-5" key={key}><Tema data={valor} getSubtemas={this.handleGetSubTemas}/></Col>
                         )
                     }
                 </Row>
@@ -237,7 +237,7 @@ class Temas extends Component {
                 <Row>
                     {
                         this.state.subtemas && this.state.subtemas.map((valor, key) =>
-                            <Col sm='4' key={key}><SubTema data={valor} getPreguntas={this.handleGetPreguntas} /></Col>
+                            <Col sm='4' className="col my-5 mx-5" key={key}><SubTema data={valor} getPreguntas={this.handleGetPreguntas} /></Col>
                         )
                     }
                     <Modal titulo="Gestion de preguntas" modal={this.state.modal} calificar={this.handleCalificar} toggle={this.toggle}

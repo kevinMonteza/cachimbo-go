@@ -17,8 +17,8 @@ const AppRoutes=()=>{
 						<Route path="/nosotros"     component={Nosotros} />
 						<Route path="/ayuda"        component={Ayuda} />
 						<Route path="/tienda"       component={Tienda} />
-						<Route path='/asignaturas'  component={Asiganturas} />
-						<Route path='/'             component={Login} />
+						<Route path='/'             component={Asiganturas} />
+						<Route path='/login'        component={Login} />
 					</Switch>
 				</App>
 				)

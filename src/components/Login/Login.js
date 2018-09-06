@@ -38,21 +38,21 @@ class ModalPreguntas extends Component {
     }
     return (
       <div>
-        <Modal isOpen={this.props.modal} size='lg'>
-          <ModalHeader toggle={this.props.toggle} charcode="X">{titulo}</ModalHeader>
+        <Modal isOpen={this.props.modal} size='sm'>
+          <ModalHeader toggle={this.props.toggle} charcode="X" className='text-align-center'>{titulo}</ModalHeader>
           <ModalBody>
             <Label>Usuario</Label>
-            <Input type="text"  placeholder="ingrese usuario" onChange={this.handleInputUser} onKeyPress={this.handleKeyPress}/><br/>
+           <Input type="text"  placeholder="ingrese usuario" onChange={this.handleInputUser} onKeyPress={this.handleKeyPress}/><br/>
             <Label>Contraseña</Label>
-            <Input type="password"  placeholder=".........." onChange={this.handleInputContra} onKeyPress={this.handleKeyPress} value={this.state.contraIn}/>
+            <Input type="password"  placeholder="Contraseña" onChange={this.handleInputContra} onKeyPress={this.handleKeyPress} value={this.state.contraIn}/>
           </ModalBody>
           <ModalFooter>
             <Container> 
-              <Row>
-                <Col>
+              <Row  className="justify-content-center">
+                <Col sm="4" xs="6">
                   <Button onClick={()=>{this.props.login(this.state.userIn,this.state.contraIn)}}>Login</Button>
                 </Col>
-                <Col sm='4'>
+                <Col sm="4" xs="6">
                   <Button>Registrar</Button>
                 </Col>
               </Row>

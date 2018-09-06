@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Login from './Login/Login';
 
 import Header from './global/Header';
-import Nav from './global/Nav';
+import Nav from './global/Navigator';
 import Footer from './global/Footer';
 import Section from './global/Section';
 
@@ -73,18 +73,19 @@ class App extends Component {
         });
         sessionStorage.removeItem('user');
     }
-
-
     render() {
+        //https://github.com/trendmicro-frontend/react-sidenav
         const { children } = this.props;
 
         if (this.state.login) {
             return (
-                <div style={{width:"100%"}}className="container-fluid">
-                    <Header />
+                <div className="container-fluid">
                     <Nav logout={this.handleLogout}/>
-                    <Section body={children}/>
-                    <Footer />
+                    <div className="ml-5">
+                        <Header/>
+                        <Section body={children}/>
+                        <Footer />  
+                    </div>
                 </div>
             );
         } else {

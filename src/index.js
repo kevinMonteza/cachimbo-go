@@ -8,7 +8,6 @@ import AppRoutes from './routes';
 import './components/global/css/Bootstrap/bootstrap.min.css';
 import './index.css';
 import './components/global/css/Header.css';
-import './components/global/css/Nav.css';
 import './components/global/css/Section.css';
 import './components/global/css/Footer.css';
 
