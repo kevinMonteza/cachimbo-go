@@ -17,7 +17,7 @@ class Asignaturas extends Component {
     }
 
     componentWillMount() {
-        console.log("will mount"+sessionStorage.getItem('user').id_usuario);
+        console.log("will mount" + sessionStorage.getItem('user').id_usuario);
         fetch("http://cachimbogo.xyz/usuario_asignatura.php/?id_usuario=55")//this.props.user.id_usuario)
             .then(response => {
                 return (response.json())
@@ -60,7 +60,7 @@ class Asignaturas extends Component {
         console.log(datitos);
     }
     handleGetTemas(props) {
-        console.log('abrir temas');
+        //console.log('abrir temas');
         /*const datos={
             id_asignatura:props,
             id_usuario:55
@@ -86,10 +86,10 @@ class Asignaturas extends Component {
         this.handleData();
         if (this.state.open) {
             return (
-                <Row style={{alignContent:"justify",marginLeft:"auto",marginRight:"auto"}}>
+                <Row>
                     {
                         asignaturas && asignaturas.map((valor, key) =>
-                            <Col sm='3' key={key}><Tarjetas data={valor} comprar={this.handleGetTemas} /></Col>
+                            <Col sm='4' className="col mt-4" key={key}><Tarjetas data={valor} comprar={this.handleGetTemas} /></Col>
                         )
                     }
                 </Row>

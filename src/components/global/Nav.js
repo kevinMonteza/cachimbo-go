@@ -11,7 +11,7 @@ class NavComponent extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.handleCerrar=this.handleCerrar.bind(this);
+       
 
         this.state = {
             collapsed: false
@@ -21,9 +21,6 @@ class NavComponent extends Component {
         this.setState({
             collapsed: !this.state.collapsed
         });
-    }
-    handleCerrar(){
-        sessionStorage.removeItem('user');
     }
 
     render() {
@@ -49,7 +46,7 @@ class NavComponent extends Component {
                             <Link to="/nosotros"><FaReadme/> Nosotros</Link>
                         </NavItem>
                         <NavItem>
-                            <a href="/login"  onClick={this.handleCerrar}><IoIosLogOut/>Cerrar Sesion</a>
+                            <Link to="/#" onClick={this.props.logout}><span><IoIosLogOut/></span>Cerrar Sesion</Link>
                         </NavItem>
                     </Nav> 
                 </Collapse>     

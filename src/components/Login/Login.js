@@ -11,6 +11,7 @@ class ModalPreguntas extends Component {
    }
     this.handleInputUser = this.handleInputUser.bind(this);
     this.handleInputContra = this.handleInputContra.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
 
     
   }
@@ -18,6 +19,11 @@ class ModalPreguntas extends Component {
     this.setState({
       userIn:data.target.value
     })
+  }
+  handleKeyPress=(event)=>{
+    if(event.key==='Enter'){
+      this.props.login(this.state.userIn,this.state.contraIn);
+    }
   }
   handleInputContra(data){
     this.setState({
@@ -36,9 +42,9 @@ class ModalPreguntas extends Component {
           <ModalHeader toggle={this.props.toggle} charcode="X">{titulo}</ModalHeader>
           <ModalBody>
             <Label>Usuario</Label>
-            <Input type="text"  placeholder="ingrese usuario" onChange={this.handleInputUser} value={this.state.userIn}/><br/>
+            <Input type="text"  placeholder="ingrese usuario" onChange={this.handleInputUser} onKeyPress={this.handleKeyPress}/><br/>
             <Label>Contraseña</Label>
-            <Input type="password"  placeholder=".........." onChange={this.handleInputContra} value={this.state.contraIn}/>
+            <Input type="password"  placeholder=".........." onChange={this.handleInputContra} onKeyPress={this.handleKeyPress} value={this.state.contraIn}/>
           </ModalBody>
           <ModalFooter>
             <Container> 

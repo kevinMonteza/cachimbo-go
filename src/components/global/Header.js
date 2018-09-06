@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container,Col,Row} from "reactstrap";
+import {Col,Row} from "reactstrap";
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -19,13 +19,11 @@ export default class Header extends React.Component {
   render() {
     return (
       <header className="App-header">
-        <Container>
-          <Row>
-            <Col sm="9">
+          <Row className="text-sm-left">
+            <Col>
                 <h1 className="App-title"> CachimboGO </h1>
             </Col>
           </Row>
-        </Container>
       </header>
   );
   }

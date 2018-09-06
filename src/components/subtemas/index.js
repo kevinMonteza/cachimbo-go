@@ -12,7 +12,7 @@ const SubTema = ({data,getPreguntas}) => {
   console.log('SUbtema');
   console.log(data);
   return (
-    <Card>
+    <Card className="card-justificar">
       <CardBody>
         <CardTitle>{datos.nombre}</CardTitle>
         <CardSubtitle><Progress value={data.porcentaje || 0} /></CardSubtitle>

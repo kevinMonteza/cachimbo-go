@@ -37,7 +37,7 @@
   .card-justificar{
     text-align:justify;
     margin-left: auto;
-  margin-right: auto;
+    margin-right: auto;
   }
   .respuesta{
     text-align: justify; 
@@ -50,10 +50,6 @@
   }
 
   @media only screen and (min-width: 768px) {
-  .container-fluid>.container{
-    margin-left: 15%;
-    margin-top: 2%;
-  }
   .registrar-section{
     border:1px solid #d8d8d8;
     padding: 3em 1em 2em;

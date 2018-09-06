@@ -226,7 +226,7 @@ class Temas extends Component {
                 <Row>
                     {
                         temas && temas.map((valor, key) =>
-                            <div key={key}><Tema data={valor} getSubtemas={this.handleGetSubTemas}/></div>
+                            <Col className="col col-md-11 mt-5 mx-3" key={key}><Tema data={valor} getSubtemas={this.handleGetSubTemas}/></Col>
                         )
                     }
                 </Row>
