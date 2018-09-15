@@ -18,10 +18,10 @@ export default class Header extends React.Component {
   }
   render() {
     return (
-      <header className="App-header">
+      <header className="App-header h-50 p-3">
           <Row className="text-sm-left">
             <Col>
-                <h1 className="App-title"> CachimboGO </h1>
+                <h1 className="header-h1 ml-3"> CachimboGO </h1>
             </Col>
           </Row>
       </header>

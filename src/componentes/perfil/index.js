@@ -16,10 +16,10 @@ const perfil = () => {
     if (usuario) {
         return (
             <Container>
-                <Row className="align-items-center mx-md-5 my-md-5">
-                    <Col sm='6' className="justify-content-center">
-                        <Card>
-                            <CardImg className="CardImg" height='200px' width='100px' src={profile} alt="Card image cap" />
+                <Row>
+                    <Col sm='6'>
+                        <Card >
+                            <CardImg className="CardImg" height='200px' src={profile} alt="Card image cap" />
                             <CardBody className="text-center">
                                 <CardTitle className="text-capitalize">{usuario.nombres + "  " + usuario.apellidos}</CardTitle>
                                 <CardSubtitle>{usuario.correo}</CardSubtitle>

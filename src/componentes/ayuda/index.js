@@ -18,7 +18,7 @@ class registrar extends Component {
             <Container>
                 <Row className="justify-content-center">
                     <Col sm={6}>
-                        <p>
+                        <div>
                             <p>¿QUÉ ES MI PERFIL?</p>
                             <p>Aquí se puede visualizar la información del usuario.</p>
                             <p>¿CÓMO RESOLVER PREGUNTAS?</p>
@@ -37,7 +37,7 @@ class registrar extends Component {
                             <p>¿QUÉ ES LA TIENDA?</p> 
                             <p>Una vez que haya reunido monedas suficientes, puede comprar asignaturas nuevas en la tienda.</p>
 
-                        </p>
+                        </div>
                     </Col>
                 </Row>
             </Container>

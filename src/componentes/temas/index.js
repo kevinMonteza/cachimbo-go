@@ -187,7 +187,7 @@ class Temas extends Component {
                 })
             }
         } else {
-            //alert('termniaste');
+            alert('terminaste');
             /**
              * Objeto amalcena las monedas del usuario y sus monedas
              */
@@ -265,7 +265,6 @@ class Temas extends Component {
                 </Row>
             )
         } else {
-            console.log(this.state.subtemas)
             return (
                 <Row>
                     {

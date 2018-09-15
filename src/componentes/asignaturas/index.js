@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col,Container } from 'reactstrap';
 import Tarjetas from './tarjetas';
 import Temas from '../temas/';
 class Asignaturas extends Component {
@@ -15,15 +15,17 @@ class Asignaturas extends Component {
         this.handleGetTemas = this.handleGetTemas.bind(this);
         this.handleData = this.handleData.bind(this);
     }
-
+/**
+ * Carga las asignaturas en las que esta matriculado 
+ * el usuario
+ */
     componentWillMount() {
-        console.log("will mount" + sessionStorage.getItem('user').id_usuario);
-        fetch("http://cachimbogo.xyz/usuario_asignatura.php/?id_usuario=55")//this.props.user.id_usuario)
+        const usuario =  JSON.parse(sessionStorage.getItem('user'));
+        fetch(`http://cachimbogo.xyz/usuario_asignatura.php/?id_usuario=${usuario.id_usuario}`)
             .then(response => {
                 return (response.json())
             })
             .then(responseJson => {
-                console.log(responseJson);
                 this.setState({
                     asignaturas: responseJson
                 })
@@ -31,7 +33,7 @@ class Asignaturas extends Component {
     }
     handleData() {
         const imagenes = [
-            { imagen: 'https://www.definicionabc.com/wp-content/uploads/2009/11/aritmetica.jpg' },
+            { imagen: 'aritmetica.jpg' },
             { imagen: 'https://kinuma.com/17434-large_default/geostix-juego-de-construccion-y-geometria-con-palitos-.jpg' },
             { imagen: 'https://www.intmath.com/basic-algebra/img/basic-algebra2.jpg' },
             { imagen: 'http://contenidosdigitales.ulp.edu.ar/exe/matematica2/seno_y_coseno.gif' },
@@ -57,14 +59,10 @@ class Asignaturas extends Component {
         for (a = 0; a < datitos.length; a++) {
             datitos[a].imagen = imagenes[a].imagen;
         }
-        console.log(datitos);
     }
+    
     handleGetTemas(props) {
-        //console.log('abrir temas');
-        /*const datos={
-            id_asignatura:props,
-            id_usuario:55
-        }*/
+        console.log(props);
         fetch("https://cachimbogo.herokuapp.com/servicios/tema-asignatura/" + props)//this.props.user.id_usuario)
             .then(response => {
                 return (response.json())
@@ -86,13 +84,15 @@ class Asignaturas extends Component {
         this.handleData();
         if (this.state.open) {
             return (
-                <Row>
+                <Container data-spy="scroll">
+                    <Row>
                     {
                         asignaturas && asignaturas.map((valor, key) =>
-                            <Col sm='4' className="col mt-4" key={key}><Tarjetas data={valor} comprar={this.handleGetTemas} /></Col>
+                            <Col sm='4' className="mt-4" key={key}><Tarjetas data={valor} comprar={this.handleGetTemas}/></Col>
                         )
                     }
                 </Row>
+                </Container>
             )
         } else {
             return (

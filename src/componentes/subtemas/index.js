@@ -9,8 +9,6 @@ import {
 const SubTema = ({data,getPreguntas}) => {
   const datos = data;
   const preguntas=getPreguntas;
-  console.log('SUbtema');
-  console.log(data);
   return (
     <Card className="card-justificar">
       <CardBody>

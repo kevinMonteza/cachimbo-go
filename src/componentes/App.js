@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Login from './Login/Login';
 
-import Header from './global/Header';
-import Nav from './global/Navigator';
-import Footer from './global/Footer';
-import Section from './global/Section';
+import Header from '../contenedores/Header';
+import Nav from '../contenedores/Navigator';
+import Footer from '../contenedores/Footer';
+import Section from '../contenedores/Section';
 
 
 
@@ -24,18 +24,24 @@ class App extends Component {
     static propTypes = {
         children: PropTypes.object.isRequired
     }
+    /**
+     * Verifica si el usuario existe 
+     * para restringir el acceso a la aplicacion
+     */
     componentWillMount(){
         const usuario = JSON.parse(sessionStorage.getItem('user'));
         if(usuario){
-            console.log("Usuario de la app"+usuario);
             this.setState({
                 login: !this.state.login,
                 modal: !this.state.modal
             });
         }
     }
+    /**
+     * Servicio para autenticar al usuario
+     * 
+     */
     handleLogin(user, contra) {
-        console.log(user + contra);
         const datos = {
             usuario: user,
             password: contra
@@ -51,7 +57,6 @@ class App extends Component {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
                 if (res.usuario) {
                     sessionStorage.setItem('user', JSON.stringify(res));
                     this.setState({
@@ -66,6 +71,10 @@ class App extends Component {
             })
 
     }
+    /**
+     * funcion para cerrar sesion
+     * 
+     */
     handleLogout(){
         this.setState({
             login: !this.state.login,
