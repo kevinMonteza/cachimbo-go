@@ -13,14 +13,16 @@ class Temas extends Component {
             open: true,
             subtemas:[],
             idSubtema:0,
+            usuario:null,
+            tipoModal:false,
             id_tema:0,
-            modal: false,     // flag para abrir o cerrar el modal
-            pregunta: [],    // Array que almacena las preguntas que llegandesde el API
-            rpta: 0,      //varaiable que almacena la respuesta, que recibe desde el componente mondal
-            respuesta: "",//se almacena la infomacion de la pregunta (explicacion de la pregunta)
-            msj: null,    // mensjae que se envia al modal "Respuesta correcta o incorrecta"
-            respuestas: [], //se almacena las respuesta de cada pregunta para guardarlas al final del analisis 
-            errorPregunta: false // flag para saber si respondió correctamente o se equivocó
+            modal: false,          // flag para abrir o cerrar el modal
+            pregunta: [],          // Array que almacena las preguntas que llegandesde el API
+            rpta: 0,               //varaiable que almacena la respuesta, que recibe desde el componente mondal
+            respuesta: "",         //se almacena la infomacion de la pregunta (explicacion de la pregunta)
+            msj: null,             // mensjae que se envia al modal "Respuesta correcta o incorrecta"
+            respuestas: [],        //se almacena las respuesta de cada pregunta para guardarlas al final del analisis 
+            errorPregunta: false   // flag para saber si respondió correctamente o se equivocó
         }
         this.handleGetSubTemas = this.handleGetSubTemas.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -28,6 +30,23 @@ class Temas extends Component {
         this.handleresponder = this.handleresponder.bind(this);
         this.handleCalificar = this.handleCalificar.bind(this);
         this.handleGetPreguntas = this.handleGetPreguntas.bind(this);
+        this.handleSaltar = this.handleSaltar.bind(this);
+    }
+    componentWillMount(){
+        this.setState({
+            usuario: JSON.parse(sessionStorage.getItem('user'))
+        });
+    }
+
+    handleSaltar(){
+       let respuesta = new this.crearObj(this.state.usuario.id_usuario, this.state.pregunta[0].id_pregunta, 0); 
+                this.setState({
+                    respuesta: this.state.pregunta[0].informacion,
+                    respuestas: this.state.respuestas.concat(respuesta),
+                    correcta: false,
+                    errorPregunta: true,
+                    msj: "La respuesta correcta es:"
+                })
     }
     handleGetSubTemas(props) {
         console.log('abrir subtemas');
@@ -75,21 +94,24 @@ class Temas extends Component {
         this.acertada = acertada;
     }
 
+    /**
+     * funcion para validar si la respuesta pulsada por
+     * el usuario fue correcta o no
+     */
     handleCalificar() {
         let preguntas = this.state.pregunta;
         let respuesta = {};
-        const usuario = JSON.parse(sessionStorage.getItem('user'));
 
         if (this.state.rpta === preguntas[0].correcta_num) {
+
             if (this.state.respuestas.find(pregunta => pregunta.id_pregunta === preguntas[0].id_pregunta)) {
-                console.log('en el if');
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     correcta: true,
                     msj: "Tu respuesta es Correcta"
                 })
             } else {
-                respuesta = new this.crearObj(usuario.id_usuario, preguntas[0].id_pregunta, 1);//falta id 
+                respuesta = new this.crearObj(this.state.usuario.id_usuario, preguntas[0].id_pregunta, 1);//falta id 
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     respuestas: this.state.respuestas.concat(respuesta),
@@ -99,7 +121,6 @@ class Temas extends Component {
             }
         } else {
             if (this.state.respuestas.find(pregunta => pregunta.id_pregunta === preguntas[0].id_pregunta)) {
-                //console.log('en el if');
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     correcta: false,
@@ -107,7 +128,7 @@ class Temas extends Component {
                     msj: "Tu respuesta es Incorrecta"
                 })
             } else {
-                respuesta = new this.crearObj(usuario.id_usuario, preguntas[0].id_pregunta, 0); // id falta
+                respuesta = new this.crearObj(this.state.usuario.id_usuario, preguntas[0].id_pregunta, 0); 
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     respuestas: this.state.respuestas.concat(respuesta),
@@ -133,7 +154,6 @@ class Temas extends Component {
     // codigo para abrir el modal
     toggle() {
         if (this.state.pregunta.length !== 0) {
-            console.log(`Enotro`);
             this.setState({
                 modal: !this.state.modal
             });
@@ -147,12 +167,8 @@ class Temas extends Component {
     //pasar a la siguiente pregunta
     handleNext() {
         let preguntas = this.state.pregunta;
-        const usuario = JSON.parse(sessionStorage.getItem('user'));
-        console.log('id subtema'+this.state.idSubtema);
         if (preguntas.length !== 1) {
             if (this.state.rpta === preguntas[0].correcta_num) {
-                //console.log(preguntas.shift());
-                //console.log(preguntas);
                 preguntas.shift();
                 this.setState({
                     pregunta: preguntas,
@@ -161,10 +177,8 @@ class Temas extends Component {
                     msj: ""
                 })
             } else {
-                //console.log(preguntas);
                 let pre = preguntas.shift();
                 preguntas.push(pre);
-                // console.log(preguntas);
                 this.setState({
                     pregunta: preguntas,
                     respuesta: "",
@@ -173,29 +187,46 @@ class Temas extends Component {
                 })
             }
         } else {
-            console.log(JSON.stringify(this.state.respuestas));
-            alert('termniaste');
-            //ganancia de monedas
+            //alert('termniaste');
+            /**
+             * Objeto amalcena las monedas del usuario y sus monedas
+             */
             const arreglo = {
-                monedas: usuario.monedas, // monedas que se extrae del perfil del usuario
-                id_usuario: usuario.id_usuario //el codigo de usuario que se extrae del perfil de usuario
+                monedas: this.state.usuario.monedas, // monedas que se extrae del perfil del usuario
+                id_usuario: this.state.usuario.id_usuario //el codigo de usuario que se extrae del perfil de usuario
             }
-            const arregloEstadistica={
-                id_usuario:usuario.id_usuario, // el id del usuario
+            /**
+             * Objeto creado para almacenar 
+             * el id_usuario id_subtema mas 
+             * completado(0 o 1)
+             */
+            const arregloEstadistica= {
+                id_usuario:this.state.usuario.id_usuario, // el id del usuario
                 id_subtema:this.state.idSubtema, //el id del subtem
                 completado:0
             }
-            if (this.state.errorPregunta) {
-                arreglo.monedas = arreglo.monedas + 2;
+            /**
+             * Verificamos si el usuario cometio 
+             * algun error al responder las preguntas
+             */
+            if (this.state.errorPregunta) { 
+                arreglo.monedas = arreglo.monedas + 2; // si se equivoco se le asigna 2 monedas 
             } else {
-                arregloEstadistica.completado = 1;
-                arreglo.monedas = arreglo.monedas + 3;
+                arregloEstadistica.completado = 1; // si no se equivoco seteamos 1 a completado
+                arreglo.monedas = arreglo.monedas + 3; // 3 si no se equivoco
             }
-            fetch('http://cachimbogo.xyz/ganancia_moneda.php?id_usuario=55&monedas=' + arreglo.monedas) //FALTA
+            /**
+             * Servicio para asignar monedas al usuario 
+             */
+            fetch(`http://cachimbogo.xyz/ganancia_moneda.php?id_usuario=${this.state.usuario.id_usuario}&monedas=${arreglo.monedas}`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);
                 })
+            /**
+             * Se almacena todas las repuestas que respondió
+             * el usuario de las pregruntas que se le envió
+             */
             fetch('https://cachimbogo.herokuapp.com/servicios/respuesta/', {
                 method: 'POST',
                 headers: {
@@ -208,13 +239,15 @@ class Temas extends Component {
                 .then(res => {
                     console.log(res);
                 })
-            fetch('http://cachimbogo.xyz/insertar_usuario_subtema.php/?id_usuario=55&id_subtema='+this.state.idSubtema+'&completado='+arregloEstadistica.completado)//FALTA
-                .then(res => res.json())
+
+            fetch(`http://cachimbogo.xyz/insertar_usuario_subtema.php/?id_usuario=${this.state.usuario.id_usuario}&id_subtema=${this.state.idSubtema}&completado=${arregloEstadistica.completado}`)   
+            .then(res => res.json())
                 .then(res => {
                     console.log(res);
                 })
             this.setState({
-                modal:!this.state.modal
+                modal:!this.state.modal,
+                tipoModal:!this.state.tipoModal
             })
         }
     }
@@ -241,7 +274,7 @@ class Temas extends Component {
                         )
                     }
                     <Modal titulo="Gestion de preguntas" modal={this.state.modal} calificar={this.handleCalificar} toggle={this.toggle}
-                    pregunta={this.state.pregunta[0]} responder={this.handleresponder} respuesta={this.state.respuesta} correcta={this.state.correcta}
+                    pregunta={this.state.pregunta[0]} responder={this.handleresponder}saltar={this.handleSaltar} respuesta={this.state.respuesta} correcta={this.state.correcta}
                     mensaje={this.state.msj} next={this.handleNext} />
                 </Row>
             )

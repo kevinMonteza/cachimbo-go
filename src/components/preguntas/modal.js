@@ -13,16 +13,12 @@ class ModalPreguntas extends Component {
     }
   }
   componentWillMount(){
-    console.log("will mount");
-    console.log(this.radios.current);
     this.setState({
       estado:false
     })
   }
   componentWillReceiveProps(props){
-    console.log(props.mensaje);
     if(props.mensaje){
-      console.log("will receive props");
       //console.log(this.radios.current);
       this.radios.current.checked = false;
       this.setState({
@@ -61,12 +57,12 @@ class ModalPreguntas extends Component {
           <ModalFooter>
             <Container>
               <div className={this.state.nombreClase}>
-                {(this.props.correcta && this.state.estado)?(<div><h2>{this.props.mensaje}</h2></div>):(<div><h2>{this.props.mensaje}</h2></div>)}
+                <div><h2>{this.props.mensaje}</h2></div>
                 <div className='respuesta'><Label>{this.props.respuesta || null}</Label></div>
               </div>
               <Row>
                 <Col>
-                   <Button id="saltar" onClick={()=>{this.props.responder(0)}}>Saltar</Button>{' '}
+                   <Button id="saltar" onClick={this.props.saltar}>Saltar</Button>{' '}
                 </Col>
                 <Col>
                 {(this.state.estado)?(<Button color="primary" className="button-principal" onClick={this.props.calificar}>Calificar</Button>):(null)}
