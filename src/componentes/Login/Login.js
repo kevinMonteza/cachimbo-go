@@ -7,12 +7,13 @@ class ModalPreguntas extends Component {
     super();
     this.state={
       userIn:'',
-      contraIn:''
+      contraIn:'',
+      registrar:false
    }
     this.handleInputUser = this.handleInputUser.bind(this);
     this.handleInputContra = this.handleInputContra.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-
+    
     
   }
   handleInputUser(data){
@@ -53,11 +54,10 @@ class ModalPreguntas extends Component {
                   <Button onClick={()=>{this.props.login(this.state.userIn,this.state.contraIn)}}>Login</Button>
                 </Col>
                 <Col sm="4" xs="6">
-                  <Button>Registrar</Button>
+                  <Button type='submit'>Registrar</Button>
                 </Col>
               </Row>
             </Container>
-           
           </ModalFooter>
         </Modal>
       </div>

@@ -84,7 +84,7 @@ class Asignaturas extends Component {
         this.handleData();
         if (this.state.open) {
             return (
-                <Container data-spy="scroll">
+                <Container style={{overflowX:"auto"}}>
                     <Row>
                     {
                         asignaturas && asignaturas.map((valor, key) =>
