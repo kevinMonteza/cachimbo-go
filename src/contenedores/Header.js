@@ -20,9 +20,7 @@ export default class Header extends React.Component {
     return (
       <header className="App-header h-50 p-3">
           <Row className="text-sm-left">
-            <Col>
-                <h1 className="header-h1 ml-3"> CachimboGO </h1>
-            </Col>
+            <Col className="header-text">CachimboGO</Col>
           </Row>
       </header>
   );
