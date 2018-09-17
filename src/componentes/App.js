@@ -20,10 +20,12 @@ class App extends Component {
         }
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.handleRegistrar = this.handleRegistrar.bind(this);
     }
     static propTypes = {
         children: PropTypes.object.isRequired
     }
+
     /**
      * Verifica si el usuario existe 
      * para restringir el acceso a la aplicacion
@@ -71,6 +73,22 @@ class App extends Component {
             })
 
     }
+    handleRegistrar(props){
+        console.log(props);
+        fetch("https://cachimbogo.herokuapp.com/servicios/usuario/", {
+
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(props)
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+            })
+    }
     /**
      * funcion para cerrar sesion
      * 
@@ -99,7 +117,7 @@ class App extends Component {
             );
         } else {
             return (
-                <Login modal={this.state.modal} login={this.handleLogin}/>
+                <Login modal={this.state.modal} login={this.handleLogin} registrar={this.handleRegistrar}/>
             )
         }
 

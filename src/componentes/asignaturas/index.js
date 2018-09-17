@@ -56,9 +56,11 @@ class Asignaturas extends Component {
 
         let a = 0;
         const datitos = this.state.asignaturas;
+        if(datitos){ 
         for (a = 0; a < datitos.length; a++) {
             datitos[a].imagen = imagenes[a].imagen;
         }
+    }
     }
     
     handleGetTemas(props) {
