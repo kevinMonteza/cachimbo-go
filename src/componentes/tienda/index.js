@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ComponenteTienda from './ComponenteTienda';
 import GetData from '../../servicios/getData';
+import PostData from '../../servicios/PostData';
 class Tienda extends Component {
 
     constructor() {
@@ -34,13 +35,16 @@ class Tienda extends Component {
                     id_articulo: id_articulo,
                     monedas: monedasU - costo
                 }
-                //FALTA     
-                fetch('http://cachimbogo.xyz/compras.php/?id_usuario='+usuario.id_usuario+'&id_articulo='+arreglo.id_articulo+'&monedas='+arreglo.monedas)
-
-                    .then(res => res.json())
-                    .then(res => {
-                        alert(`Compra existosa ${res}`);
-                    })
+                //FALTA 
+                const dir='usuarioArticulo/';
+                const data={
+                    id_usuario:usuario.id_usuario,
+                    id_articulo:arreglo.id_articulo,
+                    monedas:arreglo.monedas
+                }
+                PostData(dir,data,true).then((result)=>{
+                    alert(`Felicitaciones acabas de adquirir el articulo ${nombre}`)
+                })    
             }
         }else{
             alert('No tiene las monedas suficientes');

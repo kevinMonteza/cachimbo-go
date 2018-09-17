@@ -234,9 +234,17 @@ class Temas extends Component {
             /**
              * Servicio para asignar monedas al usuario 
              */
-            let dir = 'ganancia_moneda.php';
+          /*  let dir = 'ganancia_moneda.php';
             let data = `?id_usuario=${this.state.usuario.id_usuario}&monedas=${arreglo.monedas}`;
             GetData(dir, data).then((result) => {
+                console.log(result);
+            })*/
+            let dir = 'usuarioMonedas/';
+            let data = {
+                id_usuario:this.state.usuario.id_usuario,
+                monedas:arreglo.monedas
+            }
+            PostData(dir,data,true).then((result)=>{
                 console.log(result);
             })
 
