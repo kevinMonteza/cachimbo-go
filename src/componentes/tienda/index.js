@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ComponenteTienda from './ComponenteTienda';
-
+import GetData from '../../servicios/getData';
 class Tienda extends Component {
 
     constructor() {
@@ -10,16 +10,17 @@ class Tienda extends Component {
         }
         this.handleComprar = this.handleComprar.bind(this);
     }
+    /**
+     * obtener los articulos 
+     * que se muestran en tienda
+     */
     componentDidMount() {
-        fetch("http://cachimbogo.xyz/listarArticulo.php")
-            .then(response => {
-                return (response.json())
+        GetData('listarArticulo.php').then((result)=>{
+            console.log(result);
+            this.setState({
+                articulos: result
             })
-            .then(responseJson => {
-                this.setState({
-                    articulos: responseJson
-                })
-            })
+        })
     }
     handleComprar(nombre, costo, id_articulo) {
         const usuario = JSON.parse(sessionStorage.getItem('user'));
@@ -33,15 +34,7 @@ class Tienda extends Component {
                     id_articulo: id_articulo,
                     monedas: monedasU - costo
                 }
-               /* fetch('https://cachimbogo.herokuapp.com/servicios/usuarioArticulo/', {
-
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(arreglo)
-                })*/
+                //FALTA     
                 fetch('http://cachimbogo.xyz/compras.php/?id_usuario='+usuario.id_usuario+'&id_articulo='+arreglo.id_articulo+'&monedas='+arreglo.monedas)
 
                     .then(res => res.json())
@@ -49,6 +42,8 @@ class Tienda extends Component {
                         alert(`Compra existosa ${res}`);
                     })
             }
+        }else{
+            alert('No tiene las monedas suficientes');
         }
     }
     render = () => {

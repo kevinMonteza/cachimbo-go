@@ -16,12 +16,13 @@ class ModalPreguntas extends Component {
     this.handleInputUser = this.handleInputUser.bind(this);
     this.handleInputContra = this.handleInputContra.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleRegistro = this.handleRegistro.bind(this);
+    this.handleCambiarRegistro = this.handleCambiarRegistro.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleNombres = this.handleNombres.bind(this);
     this.handleApellidos = this.handleApellidos.bind(this);
     this.handleCorreo = this.handleCorreo.bind(this);
     this.handleRegistrar = this.handleRegistrar.bind(this);
+    this.handleRegistro = this.handleRegistro.bind(this);
   }
   handleInputUser(data) {
     this.setState({
@@ -37,11 +38,16 @@ class ModalPreguntas extends Component {
       correo:    this.state.correo,
       monedas:   0
     }
-    this.props.registrar(obj);
+    this.props.registrar(obj,this.handleCambiarRegistro);
   }
   handleNombres(data) {
     this.setState({
       nombres:data.target.value
+    });
+  }
+  handleCambiarRegistro(){
+    this.setState({
+      registrar:!this.state.registrar
     });
   }
   handleApellidos(data) {
@@ -71,7 +77,7 @@ class ModalPreguntas extends Component {
             </FormGroup>
             <FormGroup>
               <Label for="examplePassword">Apellidos</Label>
-              <Input type="text" name="contraseña" id="contraseña" onChange={this.handleApellidos} placeholder="Apelidos" />
+              <Input type="text" name="contraseña" id="contraseña" onChange={this.handleApellidos} placeholder="Apellidos" />
             </FormGroup>
             <FormGroup>
               <Label for="nombre">Correo</Label>

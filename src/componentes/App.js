@@ -6,6 +6,7 @@ import Header from '../contenedores/Header';
 import Nav from '../contenedores/Navigator';
 import Footer from '../contenedores/Footer';
 import Section from '../contenedores/Section';
+import PostData from '../servicios/PostData';
 
 
 
@@ -48,46 +49,36 @@ class App extends Component {
             usuario: user,
             password: contra
         }
-        fetch("https://cachimbogo.herokuapp.com/servicios/usuarioAuth/", {
+        PostData("usuarioAuth/",datos,true).then((result)=>{
+            if (result.usuario) {
+                sessionStorage.setItem('user', JSON.stringify(result));
+                this.setState({
+                    user: result,
+                    login: !this.state.login,
+                    modal: !this.state.modal
+                })
+            } else {
+                alert("Usuario Incorrecto");
+            }
 
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(datos)
         })
-            .then(res => res.json())
-            .then(res => {
-                if (res.usuario) {
-                    sessionStorage.setItem('user', JSON.stringify(res));
-                    this.setState({
-                        user: res,
-                        login: !this.state.login,
-                        modal: !this.state.modal
-                    })
-                } else {
-                    alert("Usuario Incorrecto");
-                }
-
-            })
 
     }
-    handleRegistrar(props){
+    /**
+     * 
+     * @param {*} props 
+     * @param {*} estado 
+     * Registrar a un nuevo usuario
+     */
+    handleRegistrar(props,estado){
         console.log(props);
-        fetch("https://cachimbogo.herokuapp.com/servicios/usuario/", {
-
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(props)
+        PostData('usuario/',props).then((result)=>{
+            if(result){
+                alert('Usuario registrado con exito');
+                estado();
+            }
+            console.log(result);
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-            })
     }
     /**
      * funcion para cerrar sesion
