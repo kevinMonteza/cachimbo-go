@@ -1,0 +1,13 @@
+.contenedorTienda{
+
+    margin-left: 25%;
+    margin-top: 5%;
+}
+
+.tienda{
+    color: white;
+    background: #5ab39d;
+    padding: 0.8%;
+    font-weight: bolder;
+    text-align: center;
+}

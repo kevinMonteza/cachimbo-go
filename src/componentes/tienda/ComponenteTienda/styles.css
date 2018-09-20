@@ -15,3 +15,17 @@
 .iconos{
     display: inline-block;
 }
+
+.card{
+    
+    width: 40%;
+    margin-left: 30%;
+  }
+
+.media{
+    objectFit: 'cover',
+  }
+
+.botonComprar{
+    text-align: center;
+}

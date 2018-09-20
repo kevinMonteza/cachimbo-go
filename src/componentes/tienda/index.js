@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import ComponenteTienda from './ComponenteTienda';
+import Paper from '@material-ui/core/Paper';
+import { FaStore } from "react-icons/fa";
+
+import './styles.css'; 
 
 class Tienda extends Component {
 
@@ -55,12 +59,27 @@ class Tienda extends Component {
         const articulos = this.state.articulos;
         const usuario = JSON.parse(sessionStorage.getItem('user'));
         return (
-            <div>
-                <h1>Tienda</h1>
-                <h2>${usuario.monedas}</h2>
-                {articulos && articulos.map((datos, key) =>
-                    <ComponenteTienda key={key} data={datos} comprar={this.handleComprar} />
-                )}
+
+            <div className="container contenedorTienda">
+                <div className="row">
+                    
+                        <Paper elevation={3}>                     
+                            
+                                <h1 className="tienda"><FaStore/> Tienda ${usuario.monedas}</h1>
+                                
+                                
+                                {articulos && articulos.map((datos, key) =>
+                                    
+                                    
+                                        <ComponenteTienda key={key} data={datos} comprar={this.handleComprar} />
+                                    
+                                    
+                                )}
+                            
+                            
+                        </Paper>
+                    
+                </div>
             </div>
         );
     }
