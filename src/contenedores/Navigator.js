@@ -10,9 +10,7 @@ class Navigator extends Component {
     render() {
         return (
             <SideNav
-                onSelect={(selected) => {
-                   
-                }}
+                style={{position:'fixed'}}
             >
                 <SideNav.Toggle />
                 <SideNav.Nav defaultSelected="home">

@@ -48,6 +48,25 @@
   .area-respuesta-false{
     background-color:#e70800;
   }
+  .ayuda-pregunta{
+    background-color: darksalmon;
+    border: 1px solid black;
+    margin-top: 5%;
+  }
+  .ayuda-respuesta{
+    border: 1px solid black;
+  }
+  .ayuda-columna{
+    text-align: justify;
+  }
+  .ayuda-contenedor{
+    margin-bottom: 5%;
+    margin-top: 1%;
+  }
+  .perfil-contenedor{
+    margin-bottom: 5%;
+    margin-top: 5%;
+  }
 
   @media only screen and (min-width: 768px) {
   .registrar-section{

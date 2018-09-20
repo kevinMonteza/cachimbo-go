@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col,Container } from 'reactstrap';
 import Tarjetas from './tarjetas';
 import Temas from '../temas/';
+import GetData from '../../servicios/getData';
 class Asignaturas extends Component {
 
     constructor() {
@@ -10,7 +11,8 @@ class Asignaturas extends Component {
             asignaturas: [],
             open: true,
             id_asignatura: null,
-            temas: []
+            temas: [],
+            usuario:JSON.parse(sessionStorage.getItem('user'))
         }
         this.handleGetTemas = this.handleGetTemas.bind(this);
         this.handleData = this.handleData.bind(this);
@@ -20,16 +22,13 @@ class Asignaturas extends Component {
  * el usuario
  */
     componentWillMount() {
-        const usuario =  JSON.parse(sessionStorage.getItem('user'));
-        fetch(`http://cachimbogo.xyz/usuario_asignatura.php/?id_usuario=${usuario.id_usuario}`)
-            .then(response => {
-                return (response.json())
+        const dir='usuario_asignatura.php';
+        const data=`?id_usuario=${this.state.usuario.id_usuario}`;
+        GetData(dir,data).then((result)=>{
+            this.setState({
+                asignaturas: result
             })
-            .then(responseJson => {
-                this.setState({
-                    asignaturas: responseJson
-                })
-            })
+        })
     }
     handleData() {
         const imagenes = [
@@ -56,27 +55,26 @@ class Asignaturas extends Component {
 
         let a = 0;
         const datitos = this.state.asignaturas;
+        if(datitos){ 
         for (a = 0; a < datitos.length; a++) {
             datitos[a].imagen = imagenes[a].imagen;
         }
     }
-    
+    }
+    /**
+     * funcion para obtener los temas por asignatura  
+     */
     handleGetTemas(props) {
         console.log(props);
-        fetch("https://cachimbogo.herokuapp.com/servicios/tema-asignatura/" + props)//this.props.user.id_usuario)
-            .then(response => {
-                return (response.json())
+        const dir='tema-asignatura';
+        const data=props;
+        GetData(dir,data,true).then((result)=>{
+            this.setState({
+                temas: result,
+                id_asignatura: props,
+                open: !this.state.open
             })
-            .then(responseJson => {
-                console.log(responseJson[0]);
-                this.setState({
-                    temas: responseJson
-                })
-            })
-        this.setState({
-            id_asignatura: props,
-            open: !this.state.open
-        });
+        })
     }
 
     render() {
@@ -84,7 +82,7 @@ class Asignaturas extends Component {
         this.handleData();
         if (this.state.open) {
             return (
-                <Container data-spy="scroll">
+                <Container style={{overflowX:"auto"}}>
                     <Row>
                     {
                         asignaturas && asignaturas.map((valor, key) =>

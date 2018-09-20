@@ -15,27 +15,59 @@ class registrar extends Component {
     }
     render() {
         return (
-            <Container>
+            <Container className="ayuda-contenedor">
                 <Row className="justify-content-center">
                     <Col sm={6}>
                         <div>
-                            <p>¿QUÉ ES MI PERFIL?</p>
-                            <p>Aquí se puede visualizar la información del usuario.</p>
-                            <p>¿CÓMO RESOLVER PREGUNTAS?</p>
-                             <p>Primero se debe ir a Resolver Test, luego seleccionamos la asignatura, luego el tema y finalmente el subtema.
-                                Haciendo esto podremos resolver las preguntas de acuerdo al subtema elegido.</p>
-                            <p>¿QUÉ ES UNA RONDA?</p> 
-                            <p>Es una colección de preguntas, para finalizar una ronda se deben responder todas las preguntas correctamente. Al finalizar una ronda se muestran los resultados correspondientes.</p>
-                            <p>¿RONDA NORMAL?</p>
-                            <p>Esta ronda cuenta con 7 preguntas.</p>
-                            <p>¿RONDA DE REPASO?</p>
-                            <p>Esta ronda cuenta con 10 preguntas.</p>
-                            <p>¿CÓMO GANAR MONEDAS?</p>
-                            <p>Debe finalizar una ronda completa para ganar monedas, 2 monedas por ronda normal y 3 por ronda de repaso.</p>
-                            <p>¿QUÉ ES EL HISTORIAL?</p>
-                            <p>Son los resultados que obtuvo en el subtema la última vez que lo resolvió.</p> 
-                            <p>¿QUÉ ES LA TIENDA?</p> 
-                            <p>Una vez que haya reunido monedas suficientes, puede comprar asignaturas nuevas en la tienda.</p>
+                             <Row className="ayuda-pregunta">
+                                <Col className="ayuda-columna">¿QUÉ ES MI PERFIL?</Col>
+                            </Row>
+                            <Row className="ayuda-respuesta">
+                                <Col className="ayuda-columna">Aquí se puede visualizar la información del usuario.</Col>
+                            </Row>
+                            <Row className="ayuda-pregunta">
+                            <Col className="ayuda-columna">¿CÓMO RESOLVER PREGUNTAS?</Col>
+                            </Row>
+                            <Row className="ayuda-respuesta">
+                                <Col className="ayuda-columna">Primero se debe ir a Resolver Test, luego seleccionamos la asignatura, luego el tema y finalmente el subtema.
+                                Haciendo esto podremos resolver las preguntas de acuerdo al subtema elegido.</Col>
+                            </Row>
+                            <Row className="ayuda-pregunta">
+                            <Col className="ayuda-columna">¿QUÉ ES UNA RONDA?</Col>
+                            </Row>
+                            <Row className="ayuda-respuesta">
+                                <Col className="ayuda-columna">Es una colección de preguntas, para finalizar una ronda se deben responder todas las preguntas correctamente. Al finalizar una ronda se muestran los resultados correspondientes.</Col>
+                            </Row>
+                            <Row className="ayuda-pregunta">
+                            <Col className="ayuda-columna">¿RONDA NORMAL?</Col>
+                            </Row>
+                            <Row className="ayuda-respuesta">
+                                <Col className="ayuda-columna">Esta ronda cuenta con 7 preguntas.</Col>
+                            </Row>
+                            <Row className="ayuda-pregunta">
+                            <Col className="ayuda-columna">¿RONDA DE REPASO?</Col>
+                            </Row>
+                            <Row className="ayuda-respuesta">
+                                <Col className="ayuda-columna">Esta ronda cuenta con 10 preguntas.</Col>
+                            </Row>
+                            <Row className="ayuda-pregunta">
+                            <Col className="ayuda-columna">¿CÓMO GANAR MONEDAS?</Col>
+                            </Row>
+                            <Row className="ayuda-respuesta">
+                                <Col className="ayuda-columna">Debe finalizar una ronda completa para ganar monedas, 2 monedas por ronda normal y 3 por ronda de repaso.</Col>
+                            </Row>
+                            <Row className="ayuda-pregunta">
+                            <Col className="ayuda-columna">¿QUÉ ES EL HISTORIAL?</Col>
+                            </Row>
+                            <Row className="ayuda-respuesta">
+                                <Col className="ayuda-columna">Son los resultados que obtuvo en el subtema la última vez que lo resolvió.</Col>
+                            </Row>
+                            <Row className="ayuda-pregunta">
+                            <Col className="ayuda-columna">¿QUÉ ES LA TIENDA?</Col>
+                            </Row>
+                            <Row className="ayuda-respuesta">
+                                <Col className="ayuda-columna">Una vez que haya reunido monedas suficientes, puede comprar asignaturas nuevas en la tienda.</Col>
+                            </Row>
 
                         </div>
                     </Col>

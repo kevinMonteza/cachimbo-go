@@ -18,7 +18,7 @@ const ComponenteTienda = ({ data, comprar }) => {
   console.log(compras);
 
   return (
-        <Card className="card">
+        <Card className="cardTienda">
           <CardActionArea>
             <CardMedia
               component="img"

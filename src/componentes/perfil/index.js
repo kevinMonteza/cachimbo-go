@@ -15,11 +15,11 @@ const perfil = () => {
     const usuario = JSON.parse(sessionStorage.getItem('user'));
     if (usuario) {
         return (
-            <Container>
-                <Row>
-                    <Col sm='6'>
+            <Container className="perfil-contenedor">
+                <Row className="justify-content-center">
+                    <Col sm={6}>
                         <Card >
-                            <CardImg className="CardImg" height='200px' src={profile} alt="Card image cap" />
+                            <CardImg style={{width: '50%', display: 'block', margin: 'auto', marginTop: '5%'}} src={profile} alt="Card image cap" />
                             <CardBody className="text-center">
                                 <CardTitle className="text-capitalize">{usuario.nombres + "  " + usuario.apellidos}</CardTitle>
                                 <CardSubtitle>{usuario.correo}</CardSubtitle>

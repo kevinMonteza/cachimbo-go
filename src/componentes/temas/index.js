@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Tema from './Tema';
 import SubTema from '../subtemas/';
+import GetData from '../../servicios/getData';
+import PostData from '../../servicios/PostData';
 import { Row, Col } from 'reactstrap';
 import Modal from '../preguntas/modal';
 
@@ -11,11 +13,11 @@ class Temas extends Component {
         super();
         this.state = {
             open: true,
-            subtemas:[],
-            idSubtema:0,
-            usuario:null,
-            tipoModal:false,
-            id_tema:0,
+            subtemas: [],
+            idSubtema: 0,
+            usuario: null,
+            tipoModal: false,
+            id_tema: 0,
             modal: false,          // flag para abrir o cerrar el modal
             pregunta: [],          // Array que almacena las preguntas que llegandesde el API
             rpta: 0,               //varaiable que almacena la respuesta, que recibe desde el componente mondal
@@ -32,61 +34,74 @@ class Temas extends Component {
         this.handleGetPreguntas = this.handleGetPreguntas.bind(this);
         this.handleSaltar = this.handleSaltar.bind(this);
     }
-    componentWillMount(){
+    componentWillMount() {
         this.setState({
             usuario: JSON.parse(sessionStorage.getItem('user'))
         });
     }
 
-    handleSaltar(){
-       let respuesta = new this.crearObj(this.state.usuario.id_usuario, this.state.pregunta[0].id_pregunta, 0); 
-                this.setState({
-                    respuesta: this.state.pregunta[0].informacion,
-                    respuestas: this.state.respuestas.concat(respuesta),
-                    correcta: false,
-                    errorPregunta: true,
-                    msj: "La respuesta correcta es:"
-                })
+    handleSaltar() {
+        let respuesta = new this.crearObj(this.state.usuario.id_usuario, this.state.pregunta[0].id_pregunta, 0);
+        this.setState({
+            respuesta: this.state.pregunta[0].informacion,
+            respuestas: this.state.respuestas.concat(respuesta),
+            correcta: false,
+            errorPregunta: true,
+            msj: "La respuesta correcta es:"
+        })
     }
     handleGetSubTemas(props) {
         console.log('abrir subtemas');
-       /*const datos={
-           id_asignatura:props,
-           id_usuario:55
-       }*/
-       fetch("https://cachimbogo.herokuapp.com/servicios/subtema-tema/"+props)//this.props.user.id_usuario)
-        .then(response => {
-            return (response.json())
-        })
-        .then(responseJson => {
-            //console.log(responseJson);
+        /*const datos={
+            id_asignatura:props,
+            id_usuario:55
+        }*/
+        const dir = 'subtema-tema';
+        const data = props;
+        GetData(dir, data, true).then((result) => {
             this.setState({
-                subtemas:responseJson
+                subtemas: result,
+                id_tema: props,
+                open: !this.state.open
             })
         })
-        this.setState({
-            id_tema:props,
-            open:!this.state.open
-        });
     }
-    handleGetPreguntas(props){
-        console.log("esta abriendo el modal ..."+props);
-        fetch(`https://cachimbogo.herokuapp.com/servicios/preguntaR/${props}/1`)
-            .then(response => {
-                return (response.json())
+    /**
+     * obtener las peguntas por subtema
+     * @param {*subtema} props 
+     */
+    handleGetPreguntas(props) {
+        console.log("esta abriendo el modal ..." + props);
+        const dir = 'preguntaR';
+        const data = `${props}/1`;
+        GetData(dir, data, true).then((result) => {
+            this.setState({
+                pregunta: result,
+                modal: !this.state.modal,
+                rpta: 0,
+                respuesta: "",
+                respuestas: [],
+                correcta: false,
+                msj: null,
+                idSubtema: props
             })
-            .then(responseJson => {
-                this.setState({
-                    pregunta: responseJson,
-                    modal: !this.state.modal,
-                    rpta: 0,
-                    respuesta: "",
-                    respuestas: [],
-                    correcta: false,
-                    msj: null,
-                    idSubtema:props
-                })
-            })
+        })
+        /* fetch(`https://cachimbogo.herokuapp.com/servicios/preguntaR/${props}/1`)
+             .then(response => {
+                 return (response.json())
+             })
+             .then(responseJson => {
+                 this.setState({
+                     pregunta: responseJson,
+                     modal: !this.state.modal,
+                     rpta: 0,
+                     respuesta: "",
+                     respuestas: [],
+                     correcta: false,
+                     msj: null,
+                     idSubtema:props
+                 })
+             })*/
     }
     crearObj(id_usuario, id_pregunta, acertada) {
         this.id_usuario = id_usuario;
@@ -128,7 +143,7 @@ class Temas extends Component {
                     msj: "Tu respuesta es Incorrecta"
                 })
             } else {
-                respuesta = new this.crearObj(this.state.usuario.id_usuario, preguntas[0].id_pregunta, 0); 
+                respuesta = new this.crearObj(this.state.usuario.id_usuario, preguntas[0].id_pregunta, 0);
                 this.setState({
                     respuesta: preguntas[0].informacion,
                     respuestas: this.state.respuestas.concat(respuesta),
@@ -191,6 +206,7 @@ class Temas extends Component {
             /**
              * Objeto amalcena las monedas del usuario y sus monedas
              */
+            console.log(this.state.usuario.monedas);
             const arreglo = {
                 monedas: this.state.usuario.monedas, // monedas que se extrae del perfil del usuario
                 id_usuario: this.state.usuario.id_usuario //el codigo de usuario que se extrae del perfil de usuario
@@ -200,16 +216,16 @@ class Temas extends Component {
              * el id_usuario id_subtema mas 
              * completado(0 o 1)
              */
-            const arregloEstadistica= {
-                id_usuario:this.state.usuario.id_usuario, // el id del usuario
-                id_subtema:this.state.idSubtema, //el id del subtem
-                completado:0
+            const arregloEstadistica = {
+                id_usuario: this.state.usuario.id_usuario, // el id del usuario
+                id_subtema: this.state.idSubtema, //el id del subtem
+                completado: 0
             }
             /**
              * Verificamos si el usuario cometio 
              * algun error al responder las preguntas
              */
-            if (this.state.errorPregunta) { 
+            if (this.state.errorPregunta) {
                 arreglo.monedas = arreglo.monedas + 2; // si se equivoco se le asigna 2 monedas 
             } else {
                 arregloEstadistica.completado = 1; // si no se equivoco seteamos 1 a completado
@@ -218,36 +234,42 @@ class Temas extends Component {
             /**
              * Servicio para asignar monedas al usuario 
              */
-            fetch(`http://cachimbogo.xyz/ganancia_moneda.php?id_usuario=${this.state.usuario.id_usuario}&monedas=${arreglo.monedas}`)
-                .then(res => res.json())
-                .then(res => {
-                    console.log(res);
-                })
+          /*  let dir = 'ganancia_moneda.php';
+            let data = `?id_usuario=${this.state.usuario.id_usuario}&monedas=${arreglo.monedas}`;
+            GetData(dir, data).then((result) => {
+                console.log(result);
+            })*/
+            let dir = 'usuarioMonedas/';
+            let data = {
+                id_usuario:this.state.usuario.id_usuario,
+                monedas:arreglo.monedas
+            }
+            PostData(dir,data,true).then((result)=>{
+                console.log(result);
+            })
+
             /**
              * Se almacena todas las repuestas que respondió
              * el usuario de las pregruntas que se le envió
              */
-            fetch('https://cachimbogo.herokuapp.com/servicios/respuesta/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.state.respuestas)
+            dir = 'respuesta/';
+            data = this.state.respuestas;
+            PostData(dir, data, true).then((result) => {
+                console.log(result);
             })
-                .then(res => res.json())
-                .then(res => {
-                    console.log(res);
-                })
 
-            fetch(`http://cachimbogo.xyz/insertar_usuario_subtema.php/?id_usuario=${this.state.usuario.id_usuario}&id_subtema=${this.state.idSubtema}&completado=${arregloEstadistica.completado}`)   
-            .then(res => res.json())
-                .then(res => {
-                    console.log(res);
-                })
+            /**
+             * Se registrar en la base de datos que 
+             * resolvio el subtema  
+             */
+            dir = 'insertar_usuario_subtema.php';
+            data = `?id_usuario=${this.state.usuario.id_usuario}&id_subtema=${this.state.idSubtema}&completado=${arregloEstadistica.completado}`;
+            GetData(dir, data).then((result) => {
+                console.log(result);
+            })
             this.setState({
-                modal:!this.state.modal,
-                tipoModal:!this.state.tipoModal
+                modal: !this.state.modal,
+                tipoModal: !this.state.tipoModal
             })
         }
     }
@@ -259,7 +281,7 @@ class Temas extends Component {
                 <Row>
                     {
                         temas && temas.map((valor, key) =>
-                            <Col className="col col-md-11 my-5 mx-5" key={key}><Tema data={valor} getSubtemas={this.handleGetSubTemas}/></Col>
+                            <Col className="col col-md-11 my-5 mx-5" key={key}><Tema data={valor} getSubtemas={this.handleGetSubTemas} /></Col>
                         )
                     }
                 </Row>
@@ -273,8 +295,8 @@ class Temas extends Component {
                         )
                     }
                     <Modal titulo="Gestion de preguntas" modal={this.state.modal} calificar={this.handleCalificar} toggle={this.toggle}
-                    pregunta={this.state.pregunta[0]} responder={this.handleresponder}saltar={this.handleSaltar} respuesta={this.state.respuesta} correcta={this.state.correcta}
-                    mensaje={this.state.msj} next={this.handleNext} />
+                        pregunta={this.state.pregunta[0]} responder={this.handleresponder} saltar={this.handleSaltar} respuesta={this.state.respuesta} correcta={this.state.correcta}
+                        mensaje={this.state.msj} next={this.handleNext} />
                 </Row>
             )
         }

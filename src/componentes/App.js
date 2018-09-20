@@ -6,6 +6,7 @@ import Header from '../contenedores/Header';
 import Nav from '../contenedores/Navigator';
 import Footer from '../contenedores/Footer';
 import Section from '../contenedores/Section';
+import PostData from '../servicios/PostData';
 
 
 
@@ -20,10 +21,12 @@ class App extends Component {
         }
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.handleRegistrar = this.handleRegistrar.bind(this);
     }
     static propTypes = {
         children: PropTypes.object.isRequired
     }
+
     /**
      * Verifica si el usuario existe 
      * para restringir el acceso a la aplicacion
@@ -46,30 +49,36 @@ class App extends Component {
             usuario: user,
             password: contra
         }
-        fetch("https://cachimbogo.herokuapp.com/servicios/usuarioAuth/", {
+        PostData("usuarioAuth/",datos,true).then((result)=>{
+            if (result.usuario) {
+                sessionStorage.setItem('user', JSON.stringify(result));
+                this.setState({
+                    user: result,
+                    login: !this.state.login,
+                    modal: !this.state.modal
+                })
+            } else {
+                alert("Usuario Incorrecto");
+            }
 
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(datos)
         })
-            .then(res => res.json())
-            .then(res => {
-                if (res.usuario) {
-                    sessionStorage.setItem('user', JSON.stringify(res));
-                    this.setState({
-                        user: res,
-                        login: !this.state.login,
-                        modal: !this.state.modal
-                    })
-                } else {
-                    alert("Usuario Incorrecto");
-                }
 
-            })
-
+    }
+    /**
+     * 
+     * @param {*} props 
+     * @param {*} estado 
+     * Registrar a un nuevo usuario
+     */
+    handleRegistrar(props,estado){
+        console.log(props);
+        PostData('usuario/',props).then((result)=>{
+            if(result){
+                alert('Usuario registrado con exito');
+                estado();
+            }
+            console.log(result);
+        })
     }
     /**
      * funcion para cerrar sesion
@@ -99,7 +108,7 @@ class App extends Component {
             );
         } else {
             return (
-                <Login modal={this.state.modal} login={this.handleLogin}/>
+                <Login modal={this.state.modal} login={this.handleLogin} registrar={this.handleRegistrar}/>
             )
         }
 
