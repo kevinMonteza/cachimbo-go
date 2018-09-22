@@ -14,13 +14,13 @@ class ModalPreguntas extends Component {
     }
   }
   componentWillMount(){
-    console.log("will");
+   // console.log("will");
     this.setState({
       estado:false
     })
   }
   componentWillReceiveProps(props){
-    console.log("receive");
+   // console.log("receive");
     if(props.mensaje){
       //console.log(this.radios.current);
       //this.radios.current.disable = true;

@@ -8,7 +8,8 @@ export default function PostData(dir, data,flag) {
         }else{
             urlTemp=url;
         }
-        console.log(`${urlTemp}/${dir}`);
+       // console.log(`${urlTemp}/${dir}`);
+       // console.log(data);
         fetch(`${urlTemp}/${dir}`, {
             method: 'POST',
             headers: {

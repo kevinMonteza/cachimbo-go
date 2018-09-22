@@ -51,7 +51,7 @@ class Temas extends Component {
         })
     }
     handleGetSubTemas(props) {
-        console.log('abrir subtemas');
+      //  console.log('abrir subtemas');
         /*const datos={
             id_asignatura:props,
             id_usuario:55
@@ -157,9 +157,9 @@ class Temas extends Component {
     }
     //codigo para leer el radio button presionado
     handleresponder(props) {
-        console.log(props);
+       // console.log(props);
         console.log("Clave correcta" + this.state.pregunta[0].correcta_num);
-        console.log(this.state.respuestas);
+       // console.log(this.state.respuestas);
         this.setState({
             rpta: props
         })
@@ -206,7 +206,7 @@ class Temas extends Component {
             /**
              * Objeto amalcena las monedas del usuario y sus monedas
              */
-            console.log(this.state.usuario.monedas);
+            //console.log(this.state.usuario.monedas);
             const arreglo = {
                 monedas: this.state.usuario.monedas, // monedas que se extrae del perfil del usuario
                 id_usuario: this.state.usuario.id_usuario //el codigo de usuario que se extrae del perfil de usuario
@@ -245,7 +245,7 @@ class Temas extends Component {
                 monedas:arreglo.monedas
             }
             PostData(dir,data,true).then((result)=>{
-                console.log(result);
+                //console.log(result);
             })
 
             /**
@@ -255,7 +255,7 @@ class Temas extends Component {
             dir = 'respuesta/';
             data = this.state.respuestas;
             PostData(dir, data, true).then((result) => {
-                console.log(result);
+               // console.log(result);
             })
 
             /**
@@ -265,7 +265,7 @@ class Temas extends Component {
             dir = 'insertar_usuario_subtema.php';
             data = `?id_usuario=${this.state.usuario.id_usuario}&id_subtema=${this.state.idSubtema}&completado=${arregloEstadistica.completado}`;
             GetData(dir, data).then((result) => {
-                console.log(result);
+                //console.log(result);
             })
             this.setState({
                 modal: !this.state.modal,

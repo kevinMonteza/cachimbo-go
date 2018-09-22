@@ -65,7 +65,7 @@ class Asignaturas extends Component {
      * funcion para obtener los temas por asignatura  
      */
     handleGetTemas(props) {
-        console.log(props);
+        //console.log(props);
         const dir='tema-asignatura';
         const data=props;
         GetData(dir,data,true).then((result)=>{
