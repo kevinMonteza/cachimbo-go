@@ -15,7 +15,6 @@ class Asignaturas extends Component {
             usuario:JSON.parse(sessionStorage.getItem('user'))
         }
         this.handleGetTemas = this.handleGetTemas.bind(this);
-        this.handleData = this.handleData.bind(this);
     }
 /**
  * Carga las asignaturas en las que esta matriculado 
