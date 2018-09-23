@@ -23,7 +23,7 @@ class Tienda extends Component {
      * obtener los articulos 
      * que se muestran en tienda
      */
-    componentDidMount() {
+    componentDidMount() {   
         let dir = 'articulo/';
         let data = {
             id_usuario: this.state.user.id_usuario
@@ -31,7 +31,6 @@ class Tienda extends Component {
         console.log(data.id_usuario);
 
         PostData(dir, data, true).then((result) => {
-            console.log(result);
             this.setState({
                 articulos: result
             })
@@ -46,27 +45,33 @@ class Tienda extends Component {
      * disponibles para el usuario
      */
     handleComprar(nombre, costo, id_articulo) {
-        const usuario = JSON.parse(sessionStorage.getItem('user'));
-        let monedasU = usuario.monedas;
-        console.log(id_articulo);
-        if (monedasU > costo) {
+        let monedasU = this.state.user.monedas;
+        if (monedasU >= costo) {
             let confirmacion = window.confirm(`Desea comprar el articulo ${nombre}`);
             if (confirmacion) {
                 const arreglo = {
-                    id_usuario: usuario.id_usuario, // id del usuario del servicio
+                    id_usuario: this.state.user.id_usuario, // id del usuario del servicio
                     id_articulo: id_articulo,
                     monedas: monedasU - costo
                 }
                 const dir = 'usuarioArticulo/';
                 const data = {
-                    id_usuario: usuario.id_usuario,
+                    id_usuario: this.state.user.id_usuario,
                     id_articulo: arreglo.id_articulo,
                     monedas: arreglo.monedas
                 }
                 PostData(dir, data, true).then((result) => {
-                    alert(`Felicitaciones acabas de adquirir el articulo ${nombre}`);
+                    console.log(result);
                 });
-
+                alert(`Felicitaciones acabas de adquirir el articulo ${nombre}`);
+                const user=this.state.user;
+                user.monedas=arreglo.monedas;
+                sessionStorage.removeItem('user');
+                sessionStorage.setItem('user',JSON.stringify(user));
+                this.componentDidMount();
+                this.setState({
+                    user:user
+                });
             }
         } else {
             alert('No tiene las monedas suficientes');
@@ -74,7 +79,8 @@ class Tienda extends Component {
     }
     render = () => {
         const articulos = this.state.articulos;
-        const usuario = JSON.parse(sessionStorage.getItem('user'));
+        const usuario = this.state.user;
+        console.log(usuario);
         return (
 
             <div className="container contenedorTienda">
