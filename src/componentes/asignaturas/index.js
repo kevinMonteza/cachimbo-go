@@ -24,7 +24,7 @@ class Asignaturas extends Component {
         const dir='usuario_asignatura.php';
         const data=`?id_usuario=${this.state.usuario.id_usuario}`;
         GetData(dir,data).then((result)=>{
-            console.log(result);
+          //  console.log(result);
             this.setState({
                 asignaturas: result
             })

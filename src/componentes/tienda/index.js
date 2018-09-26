@@ -80,7 +80,7 @@ class Tienda extends Component {
     render = () => {
         const articulos = this.state.articulos;
         const usuario = this.state.user;
-        console.log(usuario);
+       // console.log(usuario);
         return (
 
             <div className="container contenedorTienda">

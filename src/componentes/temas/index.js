@@ -158,7 +158,7 @@ class Temas extends Component {
     //codigo para leer el radio button presionado
     handleresponder(props) {
        // console.log(props);
-        console.log("Clave correcta" + this.state.pregunta[0].correcta_num);
+        //console.log("Clave correcta" + this.state.pregunta[0].correcta_num);
        // console.log(this.state.respuestas);
         this.setState({
             rpta: props
